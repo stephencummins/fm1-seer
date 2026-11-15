@@ -30,8 +30,18 @@ python3 build.py        # dist/index.html (the site), dist/artifact.html (the cl
   cards are from Sídhe's Celtic Mythology deck, © Stephen Cummins, all rights reserved. See `assets/LICENSE`.
 - **Firmware list** (`src/data/firmwares.json`): a trimmed copy of the `catalog.json` of
   [The Firmware Hub](https://thefirmwarehub.com), used under
-  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and dated in `build.py`. It was cut down to the fields the
-  seer needs; each description is its maker's.
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and dated in `src/data/asof.txt`. `refresh.py` cuts it
+  down to the fields the seer needs; each description is its maker's.
+
+## Keeping up with the hub
+
+`python3 refresh.py` reads the hub's catalogue again and rewrites `src/data/firmwares.json` and `src/data/asof.txt`;
+new firmwares need nothing else, since the seer scores each one from the hub's own fields. The hub asks for at most
+one read a day, so don't run it by hand more often than that.
+
+`.github/workflows/refresh.yml` does it daily at 13:17 UTC: refresh, build, deploy, and commit the new list. It needs
+two repository secrets, `CLOUDFLARE_API_TOKEN` (a token with Account > Cloudflare Pages > Edit) and
+`CLOUDFLARE_ACCOUNT_ID`. It can also be run from the Actions tab.
 
 ## Deploy to seer.stephen8n.com (Cloudflare Pages)
 

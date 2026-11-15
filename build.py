@@ -7,7 +7,6 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SRC, DIST = HERE / "src", HERE / "dist"
-ASOF = "14 November 2026"   # the date of the hub catalogue in src/data/firmwares.json
 
 
 SKELETON = """<!doctype html>
@@ -37,7 +36,8 @@ def main():
                 .replace("__SIDHE__", inline_json("sidhe-majors.json"))
                 .replace("__VOLTAGE__", (SRC / "voltage.js").read_text())
                 .replace("__APP__", (SRC / "app.js").read_text())
-                .replace("__ASOF__", ASOF))
+                # the day refresh.py read the hub's catalogue into src/data/firmwares.json
+                .replace("__ASOF__", (SRC / "data" / "asof.txt").read_text().strip()))
     if DIST.exists():
         shutil.rmtree(DIST)
     shutil.copytree(HERE / "assets", DIST)
