@@ -2,7 +2,7 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=DM+Mono:wght@400;500&family=Barlow+Semi+Condensed:wght@600&family=IBM+Plex+Mono&display=swap">
 <style>
 /* Layout: a coin-op fortune cabinet in the middle of a dark room: knotwork crown, the bulb-lit glass case with the
    seer, her plaque, the question buttons, then the coin door whose slot pushes out the card. Celtic night look
@@ -30,14 +30,48 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { background: var(--night); }
+/* the ground is the root's, so the wall (fixed, behind everything) shows over it */
+html { background: var(--night) radial-gradient(ellipse at 50% 0%, var(--night-2) 0%, var(--night) 65%) no-repeat; min-height: 100%; }
 body {
-  background: radial-gradient(ellipse at 50% 0%, var(--night-2) 0%, var(--night) 65%);
   color: var(--text); font: 500 19px/1.5 var(--body); min-height: 100%;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
-  padding-block: 20px 40px;
+  padding-block: 0 40px;
 }
+
+/* the wall: the gnomes' bit-art down the margins either side of the cabinet, in the cabinet's colours (the script at
+   the foot of the page grows it); masked out of the middle, so it never sits behind the machine */
+.wall { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0; transition: opacity .8s;
+  background-position: center top; background-size: 224px; image-rendering: pixelated;
+  --m: linear-gradient(to right, #000 calc(50% - 370px), transparent calc(50% - 310px), transparent calc(50% + 310px), #000 calc(50% + 370px));
+  -webkit-mask-image: var(--m); mask-image: var(--m); }
+.wall.on { opacity: .26; }
+
+/* the bar: AISLING's site bar (the mark, the switch between its three parts, then the pages), in the night's colours */
+.sitebar { --bar-rule: rgba(214,171,76,.32); --bar-display: "Barlow Semi Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --bar-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  background: #0b0712; border-bottom: 1px solid var(--bar-rule); margin-bottom: 20px;
+  margin-left: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); margin-right: calc(-1 * max(16px, env(safe-area-inset-right, 0px))); }
+.sitebar-in { max-width: 1180px; margin: 0 auto; padding: 8px 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 2px 20px; }
+.sitebar a { color: var(--text); }
+.sitebar-home { display: inline-flex; align-items: center; gap: 10px; min-height: 32px; text-decoration: none; }
+.sitebar-mark { display: block; flex: none; box-sizing: content-box; border: 1px solid var(--bar-rule); image-rendering: pixelated; }
+.sitebar-name { font: 600 1.3rem/1 var(--bar-display); letter-spacing: .14em; }
+.sitebar-by { font: 400 .78rem/1 var(--bar-mono); color: var(--gold); white-space: nowrap; }
+.sitebar-home:hover .sitebar-name { color: var(--gilt); }
+.sitebar-kit { display: flex; border: 1px solid var(--bar-rule); font: 600 .95rem/1 var(--bar-display); letter-spacing: .06em; }
+.sitebar-kit a { padding: 7px 11px 6px; text-decoration: none; white-space: nowrap; }
+.sitebar-kit a + a { border-left: 1px solid var(--bar-rule); }
+.sitebar-kit a:hover { background: var(--lacquer); color: var(--gilt); }
+.sitebar-kit a:focus-visible { outline-offset: -4px; }
+.sitebar-nav { margin-left: auto; display: flex; flex-wrap: wrap; gap: 0 14px; font: 400 .8rem/1 var(--bar-mono); }
+.sitebar-nav a { display: inline-block; padding: 8px 0; text-decoration: underline; text-decoration-thickness: 1px;
+  text-decoration-color: var(--bar-rule); text-underline-offset: 3px; white-space: nowrap; }
+.sitebar-nav a:hover { text-decoration-color: currentColor; color: var(--gilt); }
+.sitebar-nav a[aria-current] { color: var(--gilt); text-decoration: none; }
+@media (max-width: 47.99rem) { .sitebar-nav { margin-left: 0; width: 100%; } }
+@media (min-width: 48rem) and (min-height: 32rem) { .sitebar { position: sticky; top: 0; z-index: 20; } }
+@media (prefers-reduced-motion: reduce) { .wall { transition: none; } }
 a { color: var(--gilt); text-underline-offset: 3px; }
 :focus-visible { outline: 2px solid var(--gilt); outline-offset: 3px; }
 main { max-width: 580px; margin: 0 auto; display: grid; gap: 0; overflow-x: clip; padding-inline: 4px; }
@@ -211,6 +245,13 @@ h1 { margin: 0; font: 400 clamp(38px, 9.5vw, 58px)/1 var(--display); color: var(
 }
 </style>
 
+<div class="wall" data-art="seer" aria-hidden="true"></div>
+<div class="sitebar"><div class="sitebar-in">
+<a class="sitebar-home" href="https://aisling.stephen8n.com/" title="AISLING: the FM-1, FX-1 and SMK-37"><img class="sitebar-mark" src="img/mark.png" width="30" height="30" alt=""><span class="sitebar-name">AISLING</span><span class="sitebar-by">by CU_STE</span></a>
+<nav class="sitebar-kit" aria-label="AISLING for"><a href="https://aisling.stephen8n.com/fm1/" title="AISLING on the M-VAVE FM-1: the instrument, to install">FM-1</a><a href="https://aisling.stephen8n.com/fx1/" title="AISLING FX-1: an FM-1 as a USB effects box for a computer's sound">FX-1</a><a href="https://aisling.stephen8n.com/smk37/" title="AISLING on the M-VAVE SMK-37 Elite: 37 keys, pads and faders">SMK-37</a></nav>
+<nav class="sitebar-nav" aria-label="AISLING's pages"><a href="./" title="The Flash Seer: a fortune cabinet that deals the firmware you should flash" aria-current="page">seer</a><a href="https://gear.stephen8n.com/" title="What plugs into an FM-1 running AISLING, and how: keyboards, cables, power, cases">gear</a><a href="https://youtu.be/3aUARUvwT_Y" title="A short film of AISLING and its visualiser, on YouTube">video</a><a href="https://github.com/stephencummins/fm1-seer" title="The Flash Seer's code, on GitHub">source</a><a href="https://www.stephen8n.com" title="Stephen Cummins's other things">stephen8n</a></nav>
+</div></div>
+
 <main>
   <header class="crown">
     <img class="knot" src="img/knot.webp" alt="" width="480" height="210">
@@ -252,11 +293,53 @@ h1 { margin: 0; font: 400 clamp(38px, 9.5vw, 58px)/1 var(--display); color: var(
   <footer class="foot">
     <p>Firmware list: The Firmware Hub, <a href="https://thefirmwarehub.com" target="_blank" rel="noopener">thefirmwarehub.com</a> (CC BY 4.0), as of <span id="asof"></span>; each description is its maker's. Knotwork from <a href="https://sidhe.stephen8n.com" target="_blank" rel="noopener">Sídhe</a>. The fortunes are nonsense.</p>
     <div class="foot-actions">
-      <button class="mini" id="tilt" type="button" aria-pressed="false">Tilt</button>
+      <button class="mini" id="tilt" type="button" aria-pressed="false" title="Give the cabinet a shove, as on a pinball table: a tilted machine is rigged, and always prescribes AISLING">Tilt the machine</button>
       <button class="mini" id="mute" type="button" aria-pressed="false">Sound on</button>
     </div>
   </footer>
 </main>
+
+<script>
+// The wall, as on AISLING's site and the gnomes': the page's name seeds the first row of 16 cells and an elementary
+// cellular automaton grows them 16 rows down, each column in one of the cabinet's colours, one live cell an ember.
+{
+  const wall = document.querySelector('.wall')
+  const RULES = [30, 45, 73, 86, 89, 105, 110, 124, 135, 137, 149, 150, 193]
+  const STOPS = [['#2b123f', '#43205f', '#6a3a8f', '#9a6ac0'], ['#8f6d2a', '#d6ab4c', '#f6d98a', '#ffe7a8'],
+                 ['#5a1626', '#8c2a3a', '#b0484f', '#d9777a'], ['#14343a', '#1f5a5a', '#3a8a80', '#7ac0a8']]
+  const fnv = (s) => { let h = 0x811c9dc5; for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 0x01000193); return h >>> 0 }
+  const grow = (seed) => {
+    const rows = [Array.from({ length: 16 }, (_, x) => (seed >>> x) & 1)]
+    const rule = RULES[(seed >>> 16) % RULES.length]
+    for (let y = 1; y < 16; y++) {
+      const p = rows[y - 1]
+      rows.push(p.map((_, x) => (rule >> ((p[(x + 15) % 16] << 2) | (p[x] << 1) | p[(x + 1) % 16])) & 1))
+    }
+    return rows
+  }
+  if (wall) {
+    let seed = fnv(wall.dataset.art || 'seer'), rows = grow(seed)
+    for (let i = 0; i < 32; i++) {
+      const lit = rows.flat().filter(Boolean).length
+      if (lit >= 70 && lit <= 170) break
+      seed = fnv(seed.toString(36)); rows = grow(seed)
+    }
+    const hot = []
+    rows.forEach((r, y) => r.forEach((on, x) => { if (on) hot.push([x, y]) }))
+    const spark = hot[seed % hot.length] || [-1, -1]
+    const c = document.createElement('canvas'), n = 28
+    c.width = c.height = 16 * n
+    const g = c.getContext('2d')
+    rows.forEach((r, y) => r.forEach((on, x) => {
+      if (!on) return
+      g.fillStyle = x === spark[0] && y === spark[1] ? '#ff7a45' : STOPS[x >> 2][x & 3]
+      g.fillRect(x * n, y * n, n, n)
+    }))
+    wall.style.backgroundImage = `url(${c.toDataURL()})`
+    wall.classList.add('on')
+  }
+}
+</script>
 
 <script type="application/json" id="fw-data">__FW__</script>
 <script type="application/json" id="sidhe-data">__SIDHE__</script>

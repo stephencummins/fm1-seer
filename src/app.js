@@ -92,7 +92,7 @@
     tilted = on && !!AISLING; store.set("seer-tilt", tilted ? "1" : "0");
     cabinet.classList.toggle("tilted", tilted);
     tiltBtn.setAttribute("aria-pressed", String(tilted));
-    tiltBtn.textContent = tilted ? "Tilted" : "Tilt";
+    tiltBtn.textContent = tilted ? "Tilted: the machine is rigged" : "Tilt the machine";
   }
   tiltBtn.addEventListener("click", () => { setTilt(!tilted); sfx.bell(tilted ? 220 : 330, 0, 0.5, 1.5, 4, 0.12); rig.jolt(); });
   addEventListener("hashchange", () => { if (location.hash === "#tilt") setTilt(true); });
