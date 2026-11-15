@@ -23,9 +23,15 @@ strange questions to spooky music. Then, as the visitor chose at the top:
 python3 build.py        # dist/index.html (the site), dist/artifact.html (the claude.ai page), dist/cards, dist/img
 ```
 
-`src/data/firmwares.json` is a trimmed copy of The Firmware Hub's `catalog.json` (CC BY 4.0), dated in `build.py`.
-The knotwork, the card back and the Celtic cards in `assets/` (and their meanings and myths in
-`src/data/sidhe-majors.json`) are Sídhe's.
+## Licence and credits
+
+- **Code** (`build.py`, `src/` apart from `src/data/`): MIT, see `LICENSE`.
+- **Artwork and card texts** (`assets/`, `src/data/sidhe-majors.json`): the knotwork, the card back and the Celtic
+  cards are from Sídhe's Celtic Mythology deck, © Stephen Cummins, all rights reserved. See `assets/LICENSE`.
+- **Firmware list** (`src/data/firmwares.json`): a trimmed copy of the `catalog.json` of
+  [The Firmware Hub](https://thefirmwarehub.com), used under
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) and dated in `build.py`. It was cut down to the fields the
+  seer needs; each description is its maker's.
 
 ## Deploy to seer.stephen8n.com (Cloudflare Pages)
 

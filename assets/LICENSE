@@ -1,0 +1,11 @@
+Copyright (c) 2026 Stephen Cummins. All rights reserved.
+
+The artwork in this folder (the Sídhe Celtic Mythology tarot cards in cards/,
+and the card back, corner and knotwork in img/) and the card meanings and
+myths in src/data/sidhe-majors.json are not covered by the MIT licence that
+applies to this repository's code.
+
+They are published here so that The Flash Seer can be built and viewed. No
+permission is given to copy, modify, redistribute, print, sell or otherwise
+reuse them, in whole or in part, without the written permission of the
+copyright holder.
