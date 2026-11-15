@@ -16,7 +16,7 @@ FEWEST = 150   # fewer firmwares than this is a broken catalogue, not a real one
 def trim(f):
     """One firmware as the seer reads it. The short keys keep the page small: the list is inlined in it."""
     kind = f.get("kind") or "other"
-    return {"n": f["name"], "a": f.get("author") or "", "r": f.get("repo") or "",
+    return {"n": f["name"], "h": f.get("id") or "", "a": f.get("author") or "", "r": f.get("repo") or "",
             "k": kind[0] if isinstance(kind, list) else kind, "w": f.get("what") or "",
             "am": int(bool(f.get("ambient"))), "vi": int(bool(f.get("vintage"))),
             "s": int(f.get("stars") or 0), "i": int(f.get("installs") or 0), "p": f.get("play") or "",

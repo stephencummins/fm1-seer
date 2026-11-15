@@ -582,7 +582,8 @@
     const links = [
       fw.r && `<a href="https://github.com/${esc(fw.r)}" target="_blank" rel="noopener">Source on GitHub</a>`,
       fw.p && `<a href="${esc(fw.p)}" target="_blank" rel="noopener">Try it in the browser</a>`,
-      `<a href="https://thefirmwarehub.com" target="_blank" rel="noopener">Install from the hub</a>`,
+      // the hub's own address for one firmware: its search narrowed to the id, and the card's anchor
+      `<a href="https://thefirmwarehub.com/${fw.h ? `?q=${encodeURIComponent(fw.h)}#fw-${encodeURIComponent(fw.h)}` : ""}" target="_blank" rel="noopener">Install from the hub</a>`,
     ].filter(Boolean).join("");
     return `
         <article class="fw" aria-label="Your firmware">
