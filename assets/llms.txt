@@ -1,0 +1,16 @@
+# The Flash Seer
+
+> A fortune cabinet for owners of the M-VAVE FM-1 synth: a seer asks seven strange questions, then deals a card that names the firmware you should flash. By Stephen Cummins (CÚ_STE).
+
+- Two modes: "the machine" gives one synth tarot card; "the reading" deals three cards from a Celtic mythology deck.
+- Sound is made in the browser and can be switched off.
+- The firmware list comes from The Firmware Hub (thefirmwarehub.com, CC BY 4.0); each description is its maker's.
+
+## Page
+
+- [The Flash Seer](https://seer.stephen8n.com/): put a coin in
+
+## Related
+
+- [The Firmware Hub](https://thefirmwarehub.com/): where the firmware list comes from
+- [AISLING](https://aisling.stephen8n.com/): ambient firmware for the FM-1
